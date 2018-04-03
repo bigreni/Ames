@@ -10,7 +10,7 @@ function loadFavorites()
     {
         arrStops = arrFaves[i].split(":");
         arrIds = arrStops[0].split(">");
-        text = '<li><button onclick=removeFavorite(' + i + '); style="background-color:red; border:none;float:right;">&#x2718;</button><a href="javascript:loadFaveArrivals(' + arrIds[0] + "," + arrIds[1] + ');" class="langOption"><h4 class="selectLanguage">' + arrStops[1] + '</h4></a></li>';
+        text = '<li><button onclick=removeFavorite(' + i + '); style="background-color:red; border:none;float:right;">&#x2718;</button><a href="javascript:loadFaveArrivals(' + arrIds[0] + "," + arrIds[1] + ",'" + arrStops[1].trim() + "'" + ');" class="langOption"><h4 class="selectLanguage">' + arrStops[1] + '</h4></a></li>';
 	    $("#lstFaves").append(text);
     }
 }
@@ -53,7 +53,7 @@ function removeFavorite(index)
     location.reload();
 }
 
-function loadFaveArrivals(route,stop)
+function loadFaveArrivals(route,stop,text)
 {
     var outputContainer = $('.js-next-bus-results');
 
@@ -85,6 +85,8 @@ function loadFaveArrivals(route,stop)
                       if (results == "") {
                           results = results.concat("<p> No upcoming arrivals.</p>");
                       }
+
+                      results = "<p><strong>" + text + "</strong></p>" + results;
                       $(outputContainer).html(results).show();
                   }
               }
